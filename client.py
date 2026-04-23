@@ -46,6 +46,7 @@ while True:
 
     parti = intrare.split(' ', 1)
     comanda = parti[0].upper()
+    argumente = parti[1] if len(parti) > 1 else ''
 
     if comanda == 'EXIT':
         print("Inchidere client...")
@@ -64,6 +65,12 @@ while True:
             este_conectat = False
 
     elif comanda == 'PUBLISH':
+        if not este_conectat:
+            print("EROARE: Nu esti conectat. Foloseste CONNECT mai intai.")
+            continue
+        if argumente == '':
+            print("EROARE: Trebuie sa scrii un text dupa PUBLISH.")
+            continue
         raspuns = trimite_comanda(intrare)
         print(raspuns)
 

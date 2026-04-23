@@ -6,6 +6,9 @@ BUFFER_SIZE = 1024
 
 clienti_conectati = {}
 
+mesaje = {}
+urmator_id = 1
+
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server_socket.bind((HOST, PORT))
 
@@ -43,7 +46,15 @@ while True:
                 raspuns = "EROARE: Nu esti conectat la server."
 
         elif comanda == 'PUBLISH':
-            raspuns = "EROARE: Comanda PUBLISH nu este inca implementata."
+            if adresa_client not in clienti_conectati:
+                raspuns = "EROARE: Nu esti conectat la server."
+            elif argumente == '':
+                raspuns = "EROARE: Mesajul nu poate fi gol."
+            else:
+                mesaje[urmator_id] = {'text': argumente, 'autor': adresa_client}
+                raspuns = f"OK: Mesaj publicat cu ID={urmator_id}"
+                print(f"[SERVER] Mesaj nou salvat cu ID={urmator_id}")
+                urmator_id = urmator_id + 1
 
         elif comanda == 'DELETE':
             raspuns = "EROARE: Comanda DELETE nu este inca implementata."
