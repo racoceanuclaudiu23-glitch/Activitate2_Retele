@@ -60,7 +60,15 @@ while True:
             raspuns = "EROARE: Comanda DELETE nu este inca implementata."
 
         elif comanda == 'LIST':
-            raspuns = "EROARE: Comanda LIST nu este inca implementata."
+            if adresa_client not in clienti_conectati:
+                raspuns = "EROARE: Nu esti conectat la server."
+            elif len(mesaje) == 0:
+                raspuns = "OK: Nu exista mesaje publicate."
+            else:
+                linii = ["OK: Lista mesajelor:"]
+                for id_mesaj in mesaje:
+                    linii.append(f"  ID={id_mesaj} | {mesaje[id_mesaj]['text']}")
+                raspuns = "\n".join(linii)
 
         else:
             raspuns = f"EROARE: Comanda '{comanda}' este necunoscuta. Comenzi valide: CONNECT, DISCONNECT, PUBLISH, DELETE, LIST"

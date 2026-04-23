@@ -79,6 +79,9 @@ while True:
         print(raspuns)
 
     elif comanda == 'LIST':
+        if not este_conectat:
+            print("EROARE: Nu esti conectat. Foloseste CONNECT mai intai.")
+            continue
         raspuns = trimite_comanda(intrare)
         print(raspuns)
 
