@@ -75,6 +75,17 @@ while True:
         print(raspuns)
 
     elif comanda == 'DELETE':
+        if not este_conectat:
+            print("EROARE: Nu esti conectat. Foloseste CONNECT mai intai.")
+            continue
+        if argumente == '':
+            print("EROARE: Trebuie sa dai un ID dupa DELETE.")
+            continue
+        try:
+            int(argumente)
+        except ValueError:
+            print("EROARE: ID-ul trebuie sa fie un numar intreg.")
+            continue
         raspuns = trimite_comanda(intrare)
         print(raspuns)
 

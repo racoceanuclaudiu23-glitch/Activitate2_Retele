@@ -57,7 +57,21 @@ while True:
                 urmator_id = urmator_id + 1
 
         elif comanda == 'DELETE':
-            raspuns = "EROARE: Comanda DELETE nu este inca implementata."
+            if adresa_client not in clienti_conectati:
+                raspuns = "EROARE: Nu esti conectat la server."
+            else:
+                try:
+                    id_mesaj = int(argumente)
+                    if id_mesaj not in mesaje:
+                        raspuns = f"EROARE: Nu exista mesaj cu ID={id_mesaj}."
+                    elif mesaje[id_mesaj]['autor'] != adresa_client:
+                        raspuns = "EROARE: Nu esti autorul acestui mesaj."
+                    else:
+                        del mesaje[id_mesaj]
+                        raspuns = f"OK: Mesajul cu ID={id_mesaj} a fost sters."
+                        print(f"[SERVER] Mesaj sters cu ID={id_mesaj}")
+                except ValueError:
+                    raspuns = "EROARE: ID-ul trebuie sa fie un numar intreg."
 
         elif comanda == 'LIST':
             if adresa_client not in clienti_conectati:
